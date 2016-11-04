@@ -1,6 +1,7 @@
 package com.lekkimworld.liselejespeedtest;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.UUID;
 
@@ -42,8 +43,16 @@ public class Servlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
+		InputStream ins = req.getInputStream();
+		int inputLength = req.getContentLength();
+		System.out.println("Receiving <" + inputLength + "> bytes");
+		byte[] bytes = new byte[inputLength];
+		int read = 0; 
+		while (read < inputLength) {
+			int rc = ins.read(bytes, read, inputLength);
+			read += rc;
+		}
+		System.out.println("Received <" + read + "> bytes");
 	}
 
 }
