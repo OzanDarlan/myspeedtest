@@ -23,11 +23,14 @@ public class Servlet extends HttpServlet {
 			length = Integer.parseInt(strlength);
 		} catch (Throwable t) {}
 		if (length <= 0) length = 2 * 1024 * 1000;
+		System.out.println("Asked for <" + length + "> bytes");
 		
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/plain");
 		final PrintWriter pw = resp.getWriter();
 		this.writeString(length, pw);
+		
+		System.out.println("Sent <" + length + "> bytes");
 	}
 	
 	protected void writeString(int length, PrintWriter pw) throws IOException {
