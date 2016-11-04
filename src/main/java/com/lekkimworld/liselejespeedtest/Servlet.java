@@ -26,9 +26,13 @@ public class Servlet extends HttpServlet {
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/plain");
 		final PrintWriter pw = resp.getWriter();
+		this.writeString(length, pw);
+	}
+	
+	protected void writeString(int length, PrintWriter pw) throws IOException {
 		int so_far = 0;
+		final String uuid = UUID.randomUUID().toString();
 		while (so_far < length) {
-			final String uuid = UUID.randomUUID().toString();
 			final String send = (so_far + uuid.length() <= length) ? uuid : uuid.substring(0, length - so_far);
 			pw.write(send);
 			pw.flush();
