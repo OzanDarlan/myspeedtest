@@ -23,8 +23,6 @@ public class AuthFilter implements Filter {
 	public void init(FilterConfig config) throws ServletException {
 		this.username = System.getenv("speedtest.username");
 		this.password = System.getenv("speedtest.password");
-		System.out.println(this.username);
-		System.out.println(this.password);
 	}
 	
 	@Override
@@ -50,14 +48,10 @@ public class AuthFilter implements Filter {
 		}
 		try {
 			final String encodedAuth = auth.substring(6);
-			System.out.println(encodedAuth);
 			final String decodedAuth = new String(Base64.getDecoder().decode(encodedAuth));
-			System.out.println(decodedAuth);
 			final int idx = decodedAuth.indexOf(':');
 			final String username = decodedAuth.substring(0, idx);
 			final String password = decodedAuth.substring(idx+1);
-			System.out.println(username);
-			System.out.println(password);
 			if (this.username.equals(username) && this.password.equals(password)) {
 				chain.doFilter(req, resp);
 				return;
