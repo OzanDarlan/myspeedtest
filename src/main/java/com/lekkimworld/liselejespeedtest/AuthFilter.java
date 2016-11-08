@@ -15,11 +15,9 @@ public class AuthFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig config) throws ServletException {
-		for (Object objKey : System.getProperties().keySet()) {
-			String key = objKey.toString();
-			String value = System.getProperty(key);
-			System.out.println("<" + key + "> = <" + value + ">");
-		}
+		String key = "lekkim1";
+		String value = System.getenv(key);
+		System.out.println("<" + key + "> = <" + value + ">");
 	}
 	
 	@Override
