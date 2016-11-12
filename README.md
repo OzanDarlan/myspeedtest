@@ -32,3 +32,59 @@ By default curl use period for decimals but piping the output through `sed` may 
 Need to capture the output and a timestamp for each request? No problem  - simply combine with `date` e.g.:
 
 	$ curl --user jdoe:password -s https://myapp.herokuapp.com -o temp.txt -w "%{time_connect};%{time_total};" >> capture.txt && printf `date +"%Y-%m-%dT%H:%M:%S"` >> capture.txt
+
+## Deploy to heroku
+The following will do the following:
+
+* Clone the git repo into a directory called `myspeedtest`
+* Create an app on heroku (w/ a generated name)
+* Set configuration in heroku (username and password for auth)
+* Push the app to heroku (which in turn builds it using Maven)
+* Open it
+
+Please note that you must have an account on heroku before beginning and you must have the heroku CLI (https://devcenter.heroku.com/articles/heroku-command-line). The `heroku login` command logs you into heroku from the command line.
+
+	$ git clone https://github.com/lekkimworld/speedtest.git myspeedtest
+	$ cd myspeedtest
+	$ heroku login
+	$ heroku create
+	Creating app... done, ⬢ serene-shore-36960
+	https://serene-shore-36960.herokuapp.com/ | https://git.heroku.com/serene-shore-36960.git
+	
+	$ heroku config:set speedtest.username='foo'
+	Setting speedtest.username and restarting ⬢ serene-shore-36960... done, v3
+	speedtest.username: foo
+	
+	$ heroku config:set speedtest.password='bar'
+	Setting speedtest.password and restarting ⬢ serene-shore-36960... done, v4
+	speedtest.password: bar
+	
+	$ git push heroku master
+	Counting objects: 125, done.
+	Delta compression using up to 4 threads.
+	Compressing objects: 100% (41/41), done.
+	Writing objects: 100% (125/125), 17.84 KiB | 0 bytes/s, done.
+	Total 125 (delta 31), reused 125 (delta 31)
+	remote: Compressing source files... done.
+	remote: Building source:
+	remote:
+	remote: -----> Java app detected
+	...
+	...
+	remote: -----> Compressing...
+	remote:        Done: 61.1M
+	remote: -----> Launching...
+	remote:        Released v5
+	remote:        https://serene-shore-36960.herokuapp.com/ deployed to Heroku
+	remote:
+	remote: Verifying deploy.... done.
+	To https://git.heroku.com/serene-shore-36960.git
+	 * [new branch]      master -> master
+	
+	$ heroku open
+	
+Love heroku!!
+
+To delete the app (named `serene-shore-36960`):
+
+	$ heroku destroy serene-shore-36960 --confirm serene-shore-36960
