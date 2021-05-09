@@ -48,6 +48,9 @@ public class Servlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		InputStream ins = req.getInputStream();
 		int inputLength = req.getContentLength();
+		String send = "upload complete";
+		final PrintWriter pw = resp.getWriter();
+		pw.write(send);
 		System.out.println("Receiving <" + inputLength + "> bytes");
 		byte[] bytes = new byte[inputLength];
 		int read = 0; 
@@ -56,9 +59,7 @@ public class Servlet extends HttpServlet {
 			read += rc;
 		}
 
-		String send = "upload complete";
-		final PrintWriter pw = resp.getWriter();
-		pw.write(send);
+
 
 		System.out.println("Received <" + read + "> bytes");
 	}
