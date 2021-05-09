@@ -17,20 +17,10 @@ public class Servlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		final String strlength = req.getParameter("l");
-		int length = 0;
-		try {
-			length = Integer.parseInt(strlength);
-		} catch (Throwable t) {}
-		if (length <= 0) length = 2 * 1024 * 1000;
-		System.out.println("Asked for <" + length + "> bytes");
-		
-		resp.setCharacterEncoding("UTF-8");
-		resp.setContentType("text/plain");
+		String send = "latency check";
 		final PrintWriter pw = resp.getWriter();
-		this.writeString(length, pw);
-		
-		System.out.println("Sent <" + length + "> bytes");
+		pw.write(send);
+
 	}
 	
 	protected void writeString(int length, PrintWriter pw) throws IOException {
