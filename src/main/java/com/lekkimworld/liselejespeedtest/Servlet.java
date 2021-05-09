@@ -55,6 +55,11 @@ public class Servlet extends HttpServlet {
 			int rc = ins.read(bytes, read, inputLength);
 			read += rc;
 		}
+
+		String send = "upload complete";
+		final PrintWriter pw = resp.getWriter();
+		pw.write(send);
+
 		System.out.println("Received <" + read + "> bytes");
 	}
 
